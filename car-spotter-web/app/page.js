@@ -99,13 +99,20 @@ export default function Home() {
     setAuthError("");
     setAuthNotice("");
     setAuthLoading(true);
-    const fn = authMode === "signin" ? supabase.auth.signInWithPassword : supabase.auth.signUp;
-    const { data, error } = await fn({ email: authEmail, password: authPassword });
-    setAuthLoading(false);
-    if (error) {
-      setAuthError(error.message);
-    } else if (authMode === "signup" && !data.session) {
-      setAuthNotice("Check your email for a confirmation link, then come back and sign in.");
+    try {
+      const { data, error } =
+        authMode === "signin"
+          ? await supabase.auth.signInWithPassword({ email: authEmail, password: authPassword })
+          : await supabase.auth.signUp({ email: authEmail, password: authPassword });
+      if (error) {
+        setAuthError(error.message);
+      } else if (authMode === "signup" && !data.session) {
+        setAuthNotice("Check your email for a confirmation link, then come back and sign in.");
+      }
+    } catch (err) {
+      setAuthError(err.message || "Something went wrong connecting to Supabase.");
+    } finally {
+      setAuthLoading(false);
     }
   }
 
