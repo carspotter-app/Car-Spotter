@@ -59,6 +59,7 @@ export default function Home() {
   const [authEmail, setAuthEmail] = useState("");
   const [authPassword, setAuthPassword] = useState("");
   const [authError, setAuthError] = useState("");
+  const [authNotice, setAuthNotice] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
 
   const [tab, setTab] = useState("scan");
@@ -96,11 +97,16 @@ export default function Home() {
   async function handleAuth(e) {
     e.preventDefault();
     setAuthError("");
+    setAuthNotice("");
     setAuthLoading(true);
     const fn = authMode === "signin" ? supabase.auth.signInWithPassword : supabase.auth.signUp;
-    const { error } = await fn({ email: authEmail, password: authPassword });
+    const { data, error } = await fn({ email: authEmail, password: authPassword });
     setAuthLoading(false);
-    if (error) setAuthError(error.message);
+    if (error) {
+      setAuthError(error.message);
+    } else if (authMode === "signup" && !data.session) {
+      setAuthNotice("Check your email for a confirmation link, then come back and sign in.");
+    }
   }
 
   async function handleFileSelected(e) {
@@ -246,6 +252,7 @@ export default function Home() {
           <input type="email" placeholder="Email" required value={authEmail} onChange={(e) => setAuthEmail(e.target.value)} />
           <input type="password" placeholder="Password" required minLength={6} value={authPassword} onChange={(e) => setAuthPassword(e.target.value)} />
           {authError && <p style={{ color: "#F19A9A", fontSize: 13 }}>{authError}</p>}
+          {authNotice && <p style={{ color: "#7DD3C8", fontSize: 13 }}>{authNotice}</p>}
           <button className="btn btn-primary" disabled={authLoading}>
             {authLoading ? "…" : authMode === "signin" ? "Sign in" : "Create account"}
           </button>
