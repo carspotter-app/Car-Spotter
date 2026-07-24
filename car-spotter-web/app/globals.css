@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #14161A;
+  color: #ECEFF3;
+  font-family: 'Barlow', sans-serif;
+  min-height: 100vh;
+}
+
+.plate { font-family: 'Barlow Condensed', sans-serif; }
+.mono { font-family: 'IBM Plex Mono', monospace; }
+
+.container { max-width: 480px; margin: 0 auto; padding: 24px 20px 100px; }
+
+.panel {
+  background: #1B1E23;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 13px 20px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+.btn:active { transform: scale(0.96); }
+.btn-primary { background: #E8A33D; color: #14161A; }
+.btn-secondary { background: #2A2D33; color: #D6D9DE; border: 1px solid rgba(255,255,255,0.08); }
+.btn:disabled { opacity: 0.5; cursor: default; }
+
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 100%;
+  background: #0E1013;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #ECEFF3;
+  font-size: 15px;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.5);
+}
+input:focus { outline: none; border-color: rgba(232,163,61,0.5); }
+
+.tier-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+.tier-Common { background: rgba(113,113,122,0.25); color: #D4D4D8; border-color: rgba(113,113,122,0.4); }
+.tier-Uncommon { background: rgba(70,168,156,0.2); color: #7DD3C8; border-color: rgba(70,168,156,0.4); }
+.tier-Rare { background: rgba(232,163,61,0.2); color: #F0C27B; border-color: rgba(232,163,61,0.4); }
+.tier-Exotic { background: rgba(214,69,69,0.2); color: #F19A9A; border-color: rgba(214,69,69,0.4); }
+.tier-Legendary { background: rgba(155,135,240,0.2); color: #C4B5F5; border-color: rgba(155,135,240,0.4); }
+
+.dot-Common { background: #9CA3AF; }
+.dot-Uncommon { background: #46A89C; }
+.dot-Rare { background: #E8A33D; }
+.dot-Exotic { background: #D64545; }
+.dot-Legendary { background: #9B87F0; }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.car-photo {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(20,22,26,0.95);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.nav-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #71717A;
+  cursor: pointer;
+}
+.nav-btn.active { color: #E8A33D; }
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: #52525B;
+}
+
+@keyframes scanline { 0% { top: 0%; } 100% { top: 100%; } }
+.scan-line {
+  position: absolute; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #46A89C, transparent);
+  animation: scanline 1.4s linear infinite;
+}
